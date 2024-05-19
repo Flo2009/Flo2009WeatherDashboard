@@ -36,7 +36,7 @@
   }
   
   .swim-lanes {
-    min-height: 60vh;
+    height: 200px;
   }
   
   .task-card {
@@ -46,13 +46,36 @@
   .task-card:hover {
     cursor: grab;
   }
+
+  .weather-card{
+    width:200px;
+    
+  }
+
+  .current-weather{
+    height:180px;
+  }
+
+  #current-card{
+    background-color: rgba(0, 255, 217, 0.244);
+    border-style:  #000;
+    padding-left: 10px;
+    padding-top: 3px;
+    border-radius: 10px;
+  }
+  #current{
+    background-color: #fff;
+  }
+  #city-links{
+    background-color: #3498db;
+    
+  }
   
-  
-  /* style project rows based on status (late, due today) */
+  /* style project rows based on status (late, due today)
   .project-late {
     background-color: var(--lightred);
   }
   
   .project-today {
     background-color: var(--lightyellow);
-  }
+  } */
