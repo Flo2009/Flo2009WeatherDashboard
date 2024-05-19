@@ -51,13 +51,25 @@
     width:200px;
     
   }
+  .new-weather-card{
+    border-radius: 10px;
+   
+  }
 
   .current-weather{
-    height:180px;
+    height:250px;
+  }
+  .new-button{
+    border-color: #000;
+    border-width: 2px;
+    margin-bottom: 3px;
+    background-color: #3498db;
+    border-radius: 10px;
   }
 
   #current-card{
     background-color: rgba(0, 255, 217, 0.244);
+    
     border-style:  #000;
     padding-left: 10px;
     padding-top: 3px;
@@ -67,15 +79,9 @@
     background-color: #fff;
   }
   #city-links{
-    background-color: #3498db;
+    background-color: #fff;
     
   }
+
   
-  /* style project rows based on status (late, due today)
-  .project-late {
-    background-color: var(--lightred);
-  }
   
-  .project-today {
-    background-color: var(--lightyellow);
-  } */
