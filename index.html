@@ -34,7 +34,7 @@
                         <div class="card-body">
                         
                         </div>
-                        <form id="project-form">
+                        <form id="search-form">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                 <input
@@ -54,14 +54,16 @@
                         </form>
                     </div>
                 </div>
-
+<!-- current weather card -->
                 <div class="col">
                     <div class="col-12  d-flex">
                                 
-                        <div id="to-do" class="card border-dark mb-5 lane flex-grow-1 "> 
+                        <div id="current" class="card flex-grow-1 current-weather"> 
                         
-                            <div class="card-body bg-light">
-                                <div id="current-cards"></div>
+                            <div class="card-body">
+                                <div id="current-card">
+                                    <!-- <h3><span id="city-selection"></span></h3> -->
+                                </div>
                             </div>
                         </div>
                     </div>  
@@ -69,73 +71,63 @@
 
                 <div class="row">
                     <div class="col-md col-xl-4">
-                    <!-- Search City Engine -->
+                    <!-- Cities already searched -->
                         <div class="card mb-3">
                             <h2 class="h4 card-header custom-card-header">Searched Cities</h2>
-                            <div class="card-body">
+                            <div id='city-link-element'class="card-body">
                                 <div class="card-footer">
-                                    <button type="submit" class="col-md col-xl-12 mb-3 btn btn-custom">
-                                    Start Search
-                                    </button>
-                                    <button type="submit" class="col-md col-xl-12 mb-3 btn btn-custom">
-                                        Start Search
-                                        </button>
+                                   <div id="city-links" class="list-group"></div> 
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                
-           
-
                     <div class="col-md col-xl-8">
                         
-                        
-
                         <div class="row">
                             <h3>5-Day Weather Display</h3>
                         </div>
                         
                         <!-- Weather Section -->
-                        <div class="row swim-lanes text-center justify-content-between">
+                        <div class="row swim-lanes text-center justify-content-evenly">
                                 <div class="col-12 col-lg-2 d-flex">
                                     
-                                    <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
+                                    <div id="weather-1" class="card border-light mb-3 lane flex-grow-1">
                                     
-                                        <div class="card-body bg-light">
-                                            <div id="dayone-cards"></div>
+                                        <div class="card-body bg-light weather-card">
+                                            <div id="dayone-card"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-2 d-flex">
-                                    <div id="in-progress" class="card border-light mb-3 lane flex-grow-1">
+                                    <div id="weather-2" class="card border-light mb-3 lane flex-grow-1">
                                     
-                                        <div class="card-body bg-light">
-                                            <div id="daytwo-cards"></div>
+                                        <div class="card-body bg-light weather-card">
+                                            <div id="daytwo-card"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-2 d-flex">
-                                    <div id="done" class="card border-light mb-3 lane flex-grow-1">
+                                    <div id="weather-3" class="card border-light mb-3 lane flex-grow-1">
                                     
-                                        <div class="card-body bg-light">
-                                            <div id="daythree-cards"></div>
+                                        <div class="card-body bg-light weather-card"">
+                                            <div id="daythree-card"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-2 d-flex">
-                                    <div id="done" class="card border-light mb-3 lane flex-grow-1">
+                                    <div id="weather-4" class="card border-light mb-3 lane flex-grow-1">
                                     
-                                        <div class="card-body bg-light">
-                                            <div id="dayfour-cards"></div>
+                                        <div class="card-body bg-light weather-card"">
+                                            <div id="dayfour-card"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-2 d-flex">
-                                    <div id="done" class="card border-light mb-3 lane flex-grow-1">
+                                    <div id="weather-5" class="card border-light mb-3 lane flex-grow-1">
                                     
-                                        <div class="card-body bg-light">
-                                            <div id="dayfive-cards"></div>
+                                        <div class="card-body bg-light weather-card">
+                                            <div id="dayfive-card"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -158,6 +150,6 @@
       integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
       crossorigin="anonymous"
     ></script>
-    <script src="./assets/js/script.js"></script>
+    <script src="./assets/script.js"></script>
   </body>
 </html>
