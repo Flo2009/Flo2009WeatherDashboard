@@ -11,6 +11,7 @@ const weatherDayFiveEl=document.querySelector('#dayfive-card');
 const cityLinkEl=document.querySelector('#city-links')
 const apiKey='0d552094f106990cbff9be54fa9c4761'
 
+//run the API per search submission
 const formSubmissonHandler = function (event){
     event.preventDefault();
     
@@ -24,14 +25,15 @@ const formSubmissonHandler = function (event){
         weatherDayThreeEl.textContent = '';
         weatherDayFourEl.textContent = '';
         weatherDayFiveEl.textContent = '';
+        document.getElementById('search-form').reset();
         getLocationData(cityName, apiKey);
         cityAddToStorage(cityName);
-
+        
     }else{
         alert('Please Enter a City Name');
     }
 }
-
+//add the cities to the storage and ensure that there are no double listings
 const cityAddToStorage = function(cityName){
     let check=false;
     let index=0;
@@ -72,7 +74,7 @@ const cityAddToStorage = function(cityName){
         }
     }
 }
-
+//add cities as links maximum number us is 10
 const addCityLinks = function(){
     let cityArray = JSON.parse(localStorage.getItem('cities'));
     const cityLinks = $('#city-links');
@@ -81,7 +83,7 @@ const addCityLinks = function(){
     for (city of cityArray){
         //create city link button on the card
         const cityLinkButton=$('<button>')
-        .addClass('btn text-black border-dark')
+        .addClass('btn text-black new-button')
         .text(city)
         .attr('city', city);
         cityLinkButton.on('click',getLinkCityData);
@@ -90,7 +92,7 @@ const addCityLinks = function(){
 
     }
 }
-
+//run application from the links
 const getLinkCityData = function(){
     currentWeatherDisplayEl.textContent = '';
     weatherDayOneEl.textContent = '';
@@ -101,7 +103,7 @@ const getLinkCityData = function(){
     getLocationData($(this).attr('city'), apiKey);
 
 }
-
+//get the geo-location from the city name
 const getLocationData = function (cityName, apiKey){
    if (typeof cityName==='undefined'){
     return;
@@ -124,7 +126,7 @@ const getLocationData = function (cityName, apiKey){
         alert('Unable to connect to OpenWeather');
     });
 }
-
+//get the weather data per geo-location
 const getWeatherData = function (location, apiKey, cityName){
     if (location.length===0){
         alert(`No location data present!`);
@@ -152,7 +154,7 @@ const getWeatherData = function (location, apiKey, cityName){
     }
     
 }
-
+//display the weather cards and call the weather card generator function 
 const displayWeatherData = function(weatherData, cityName){
     if (weatherData.length===0){
         alert('No Weather Data Present');
@@ -167,43 +169,41 @@ const displayWeatherData = function(weatherData, cityName){
     let tempItem = weatherData.current.temp + 'F';
     let windItem = weatherData.current.wind_speed + 'mph';
     let status = '#current-card';
-    let cardContent={cityName, dateItem,tempItem,windItem,humidityItem, status};
+    let icon = weatherData.current.weather[0].icon;
+    let iconUrl = `http://openweathermap.org/img/w/${icon}.png`;
+    let cardContent={cityName, dateItem,tempItem,windItem,humidityItem, status, iconUrl};
     currentDisplay.append(createCard(cardContent));
 
     let weatherArray = weatherData.daily
+    // let weatherArray2=weatherData.current
     let statusArray = ['#dayone-card', '#daytwo-card', '#daythree-card', '#dayfour-card', '#dayfive-card'];
     // console.log(weatherArray);
+    // console.log(weatherArray2);
 
     for (let i = 0; i < statusArray.length; i++){
         dateItem=dateConversion(weatherArray[i+1].dt);
-        humidityItem=weatherArray[i+1].humidity + '%';
-        tempItem=weatherArray[i+1].temp.day + 'F';
-        windItem=weatherArray[i+1].wind_speed + 'mph';
+        // console.log(`My Date ${weatherArray[i].dt}`);
+        humidityItem=weatherArray[i].humidity + '%';
+        tempItem=weatherArray[i].temp.day + 'F';
+        windItem=weatherArray[i].wind_speed + 'mph';
+        icon =weatherArray[i].weather[0].icon;
+        iconUrl = `http://openweathermap.org/img/w/${icon}.png`;
         status=statusArray[i];
         currentDisplay=$(statusArray[i]);
-        cardContent={cityName, dateItem,tempItem,windItem,humidityItem, status};
+        cardContent={cityName, dateItem,tempItem,windItem,humidityItem, status, iconUrl};
 
         currentDisplay.append(createCard(cardContent));
     }
     
 };
-
+//convert the date provided from openweathermap to a dateformat mm/dd/yyyy   .toLocaleDateString("en-US")
 const dateConversion = function(dte){
-    let dtePresented = new Date(dte * 1000);
-    let dd = dtePresented.getDate();
-    let mm = dtePresented.getMonth();
-    let yyyy= dtePresented.getFullYear();
-
-    if (dd < 10){
-        dd= '0' + dd;
-    }else if (mm < 10){
-        mm = '0' + mm;
-    };
-    dtePresented = `${mm}/${dd}/${yyyy}`;
-    
+    let dtePresented = new Date(dte*1000).toLocaleDateString("en-US");
+    console.log(dte);
+    console.log(dtePresented);
     return dtePresented;
 }
-
+//create the weather cards
 function createCard(cardContent) {
     //pass all the weather attributes to the card
       const newCard=$('<div>')
@@ -211,6 +211,7 @@ function createCard(cardContent) {
     
       const cardHeader=$('<div>').addClass('weather-header h4').text(`${cardContent.cityName} ${cardContent.dateItem}`);
       const cardBody=$('<div>').addClass('weather-body');
+      const cardImage=$('<img>').attr('src', cardContent.iconUrl);
       const cardTemp=$('<p>').addClass('weather-text').text(`Temperature: ${cardContent.tempItem}`);
       const cardWind=$('<p>').addClass('weather-text').text(`Wind: ${cardContent.windItem}`);
       const cardHumidity=$('<p>').addClass('weather-text').text(`Humidity: ${cardContent.humidityItem}`);
@@ -223,11 +224,11 @@ function createCard(cardContent) {
     };
     
   //append everything to the weather card
-    cardBody.append(cardTemp, cardWind, cardHumidity);
+    cardBody.append(cardImage, cardTemp, cardWind, cardHumidity);
     newCard.append(cardHeader, cardBody);
   
     return newCard;
   }
 searchFormEl.addEventListener('submit', formSubmissonHandler);
 cityLinkEl.addEventListener('click',getLinkCityData);
- 
+addCityLinks(); 
