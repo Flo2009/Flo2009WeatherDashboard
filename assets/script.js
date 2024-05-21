@@ -160,33 +160,32 @@ const displayWeatherData = function(weatherData, cityName){
         alert('No Weather Data Present');
         return;
     }
-    
+    //display the current status
     localStorage.setItem(`weather`, JSON.stringify(weatherData));
-    
+    let weatherArray = weatherData.daily
+
     let currentDisplay = $('#current-card');
-    let dateItem = dateConversion(weatherData.current.dt);
-    let humidityItem = weatherData.current.humidity + '%';
-    let tempItem = weatherData.current.temp + 'F';
-    let windItem = weatherData.current.wind_speed + 'mph';
+    let dateItem = dateConversion(weatherArray[0].dt);
+    let humidityItem = weatherArray[0].humidity + '%';
+    let tempItem = weatherArray[0].temp.day + 'F';
+    let windItem = weatherArray[0].wind_speed + 'mph';
     let status = '#current-card';
-    let icon = weatherData.current.weather[0].icon;
+    let icon = weatherArray[0].weather[0].icon;
     let iconUrl = `http://openweathermap.org/img/w/${icon}.png`;
     let cardContent={cityName, dateItem,tempItem,windItem,humidityItem, status, iconUrl};
     currentDisplay.append(createCard(cardContent));
 
-    let weatherArray = weatherData.daily
-    // let weatherArray2=weatherData.current
+   
     let statusArray = ['#dayone-card', '#daytwo-card', '#daythree-card', '#dayfour-card', '#dayfive-card'];
-    // console.log(weatherArray);
-    // console.log(weatherArray2);
+    //display the forecast
 
     for (let i = 0; i < statusArray.length; i++){
         dateItem=dateConversion(weatherArray[i+1].dt);
         // console.log(`My Date ${weatherArray[i].dt}`);
-        humidityItem=weatherArray[i].humidity + '%';
-        tempItem=weatherArray[i].temp.day + 'F';
-        windItem=weatherArray[i].wind_speed + 'mph';
-        icon =weatherArray[i].weather[0].icon;
+        humidityItem=weatherArray[i+1].humidity + '%';
+        tempItem=weatherArray[i+1].temp.day + 'F';
+        windItem=weatherArray[i+1].wind_speed + 'mph';
+        icon =weatherArray[i+1].weather[0].icon;
         iconUrl = `http://openweathermap.org/img/w/${icon}.png`;
         status=statusArray[i];
         currentDisplay=$(statusArray[i]);
